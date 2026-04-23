@@ -28,7 +28,7 @@ const Signup = () => {
 
     try {
       await makeApiRequest(
-        "http://localhost:4000/api/user/file/register",
+        "http://localhost:3000/api/user/register",
         "POST",
         formData,
       );

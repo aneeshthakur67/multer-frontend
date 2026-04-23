@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { makeApiRequest } from "../utils/apiService";
 import "./Auth.css";
+import { useUserContext } from "../context/UserContext";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,20 +15,19 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const {setUserData} = useUserContext() || {};
+  console.log(context);
   const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
-
     try {
       const response = await makeApiRequest(
-        "http://localhost:4000/api/user/file/login",
+        "http://localhost:3000/api/user/login",
         "POST",
         data,
       );
-
+      setUserData(response.data)
       console.log("Login successful:", response);
-
       navigate("/");
     } catch (err) {
       console.error("Login failed:", err);

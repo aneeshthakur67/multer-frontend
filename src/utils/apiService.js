@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:4000/api/user/file",
+  baseURL: "http://localhost:4000/api/user/",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const makeApiRequest = async (
