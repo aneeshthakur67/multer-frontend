@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { makeApiRequest } from "../utils/apiService";
 import "./Auth.css";
 import { useUserContext } from "../context/UserContext";
@@ -15,8 +15,7 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const {setUserData} = useUserContext() || {};
-  console.log(context);
+  const { setUserData } = useUserContext() || {};
   const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
@@ -26,7 +25,7 @@ const Login = () => {
         "POST",
         data,
       );
-      setUserData(response.data)
+      setUserData(response.data);
       console.log("Login successful:", response);
       navigate("/");
     } catch (err) {

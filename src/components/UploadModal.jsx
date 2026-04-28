@@ -47,22 +47,24 @@ const UploadModal = ({ isOpen, onClose, onSuccess }) => {
     setUploading(true);
     setError(null);
     try {
-      const data = {
-        image: form.file,
-        title: form.title,
-      };
+      const formData = new FormData();
+
+      formData.append("image", form.file);
+      formData.append("title", form.title);
+      console.log(formData);
       const response = await makeApiRequest(
         "http://localhost:3000/api/user/gallery/upload",
         "POST",
-        data,
+        formData,
+        { "Content-Type": "multipart/form-data" },
       );
 
+      onSuccess(response.data);
       if (response.statusCode !== 200 && response.statusCode !== 201) {
         throw new Error(response.message || "Upload failed.");
       }
 
-      onSuccess(response.data);
-      reset();
+      handleClose();
     } catch (err) {
       setError(err.message || "Upload failed. Please try again.");
     } finally {

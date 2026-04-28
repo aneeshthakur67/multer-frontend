@@ -1,7 +1,11 @@
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import { useUserContext } from "../context/UserContext";
+import Profile from "./Profile";
 
 export default function Header() {
+  const { userData } = useUserContext();
+  const isAuthenticated = !!userData;
   return (
     <header className="header">
       {/* Logo */}
@@ -44,9 +48,13 @@ export default function Header() {
         >
           Gallery
         </NavLink>
-        <NavLink className="sign-in-btn" to="/login">
-          Login
-        </NavLink>
+        {isAuthenticated ? (
+          <Profile />
+        ) : (
+          <NavLink className="sign-in-btn" to="/login">
+            Login
+          </NavLink>
+        )}
       </div>
     </header>
   );

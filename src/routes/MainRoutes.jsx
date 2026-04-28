@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
+import ProtectedRoute from "./ProtectedRoute";
 
 const MainRoutes = () => {
   return (
@@ -14,8 +15,10 @@ const MainRoutes = () => {
           <Route index element={<HomePage />} />
           <Route path="gallery" element={<Gallery />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route  element={<ProtectedRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
